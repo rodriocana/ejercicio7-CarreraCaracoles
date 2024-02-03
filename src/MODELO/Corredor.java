@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
-public class Corredor implements Runnable {
+//public class Corredor implements Runnable {
+public class Corredor extends Thread {
 
     static final int DIAMETER = 45;
     int x = 0;
@@ -67,20 +69,27 @@ public class Corredor implements Runnable {
     void move() throws InterruptedException {
 
         int contador = 0;
-        Thread.sleep((long) (Math.random() * 12));
-        if (x + vx > game.getWidth() - DIAMETER) {  // esto es para cuando colisiona
+        Thread.sleep((long) (Math.random() * 19));  // este hilo hace que cada caracol se mueva distinto
+        if (x + vx > game.getWidth() - DIAMETER) {  // esto es para cuando colisiona con la pared final
 
-            contador++;
+            game.gameOver();
 
-            if (contador == 1) {
+        }
 
-                game.gameOver();
+        for (Bomba bomba : game.getBombas()) {  // aqui es la colision
+            if (getBounds().intersects(bomba.getBounds())) {
+                // Detener el hilo del corredor
+
+                return;
             }
 
         }
 
         x = x + 2; // esto para moverse hacia la derecha
+
     }
+
+  
 
     public void paint(Graphics g) {
         // Dibuja la imagen solo si está cargada correctamente
@@ -108,6 +117,14 @@ public class Corredor implements Runnable {
 
     public void setX(int x) {
         this.x = x;
+    }
+    
+      public int getY() {
+        return y;
+    }
+
+    void move(double elapsedTime) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -6,8 +6,11 @@
 package Vista;
 
 import MODELO.Game;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -25,14 +28,34 @@ public class Ejercicio7PelotasHilos {
         frame.add(game);
         frame.setBackground(Color.BLACK);
         frame.setSize(1500, 400);
+        
+        
+        
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+         JLabel backgroundLabel = new JLabel();
+        
+        // Carga la imagen desde un archivo (asegúrate de tener la imagen en el directorio correcto)
+        ImageIcon backgroundImage = new ImageIcon("carretera.jpg");
+
+        // Establece la imagen de fondo en el JLabel
+        backgroundLabel.setIcon(backgroundImage);
+
+        // Establece el diseño del JFrame para que pueda contener el JLabel
+        frame.setLayout(new BorderLayout());
+        
+        // Añade el JLabel al centro del JFrame
+        frame.add(backgroundLabel, BorderLayout.CENTER);
+        
+               
+
 
         while (true) {
-            
+
             game.move();
             game.repaint();
-             
+
         }
     }
 
